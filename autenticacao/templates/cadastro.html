@@ -1,0 +1,50 @@
+{% extends 'bases/base.html' %}
+{% load static %}
+
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'autenticacao/css/cadastro.css' %}">
+
+{% endblock %}
+
+
+{% block 'titulo' %}Cadastre-se{% endblock %}
+
+{% block 'body' %}
+<div class="container-fluid d-flex justify-content-center md-10">
+    <div class="row">
+        <div class="col-md-9">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{message.tags}}">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="card">
+                <div class="row">
+                    <h2 class="fonte-destaque">Cadastro</h2>
+                    <hr class="linha-format">
+
+                    <br>
+                    <br>
+                    <form method="POST" action="{% url 'cadastro' %}">{% csrf_token %}
+                        <p class="login-box-msg">Faça seu cadastro para iniciar sua sessão</p>
+                        <input name="username" class="form-control rounded" type="text" placeholder="Nome">
+                        <br>
+                        <input name="email" class="form-control rounded" type="text" placeholder="Email">
+                        <br>
+                        <input name="senha" class="form-control rounded" type="password" placeholder="Senha">
+                        <br>
+                        <input class="botao-principal" type="submit" value="Cadastrar-se">
+                        <br>
+                        <br>
+                        <a href="{% url 'login' %}" type="submit" class="botao-principal">Já possuo cadastro</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

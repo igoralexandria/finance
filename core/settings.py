@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'extrato',
     'planejamento',
     'contas',
+    'autenticacao',
 
 ]
 
