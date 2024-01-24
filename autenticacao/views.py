@@ -4,6 +4,10 @@ from django.contrib import messages, auth
 from django.contrib.messages import constants
 
 
+def welcome(request):
+    return render(request, 'welcome.html')
+
+
 def login(request):
     if request.method == "GET":
         if request.user.is_authenticated:
@@ -20,7 +24,7 @@ def login(request):
             return redirect('/login')
         else:
             auth.login(request, usuario)
-            return redirect('/')
+            return redirect('/perfil/home')
 
 
 def cadastro(request):
@@ -57,4 +61,4 @@ def cadastro(request):
 
 def sair(request):
     auth.logout(request)
-    return redirect('/sair')
+    return redirect('/login')

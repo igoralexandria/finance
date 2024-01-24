@@ -1,11 +1,34 @@
 {% extends 'bases/base.html' %}
 {% load static %}
 {% block 'head' %}
-    <link href="{% static 'perfil/css/home.css' %}" rel="stylesheet">
+<link href="{% static 'autenticacao/css/welcome.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block 'body' %}
-    <div class="container">
-
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #201F1F;">
+    <div class="navbar-brand" style="position: absolute; top: -10px; right: 0;">
+        <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
+        <span> | </span>
+        <a href="{% url 'cadastro' %}" class="btn btn-secondary">Cadastrar-se</a>
     </div>
+</nav>
+
+<span>Sejam bem-vindos ao maior site de finanças. Aqui preparamos para você ferramentas de controle financeiro.</span>
+<br><br>
+
+<!-- The slideshow/carousel -->
+<div class="content">
+    <div class="row">
+        <div class="carousel-inner">
+            <div class="carousel-item">
+                <img src="{% static 'autenticacao/img/user.png' %}" alt="Los Angeles">
+                <div class="carousel-caption">
+                    <h3>Los Angeles</h3>
+                    <p>We had such a great time in LA!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

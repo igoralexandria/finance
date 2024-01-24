@@ -1,29 +1,24 @@
 {% extends 'bases/base.html' %}
 {% load static %}
-
-
 {% block 'head' %}
 <link rel="stylesheet" href="{% static 'autenticacao/css/login.css' %}">
 
 {% endblock %}
 
-
-{% block 'titulo' %}Cadastre-se{% endblock %}
-
 {% block 'body' %}
-<div class="container-fluid d-flex justify-content-center md-10">
+<div class="container d-flex justify-content-center" style="margin-top: 100px;">
     <div class="row">
         <div class="col-md-9">
-            <div class="card">
-                <div class="row">
-                    <h2 class="fonte-destaque">Login</h2>
-                    {% if messages %}
-                    {% for message in messages %}
+            {% if messages %}
+                {% for message in messages %}
                     <div class="alert {{message.tags}}">
                         {{message}}
                     </div>
-                    {% endfor %}
-                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <div class="card">
+                <div class="row">
+                    <h2 class="fonte-destaque">Login</h2>
                     <br>
                     <br>
                     <form method="POST" action="{% url 'login' %}">{% csrf_token %}
