@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
-
 from extrato.models import Valores
 from .models import Categoria, Conta
 from django.contrib import messages
 from django.contrib.messages import constants
 from .utils import calcula_total, calcula_equilibrio_financeiro
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def home(request):
     valores = Valores.objects.filter(data__month=datetime.now().month)
     entradas = valores.filter(tipo='E')
@@ -28,6 +29,7 @@ def home(request):
                                                             })
 
 
+@login_required
 def gerenciar(request):
     contas = Conta.objects.all()
     categorias = Categoria.objects.all()

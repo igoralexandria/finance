@@ -8,8 +8,10 @@ from .models import ContaPagar, ContaPaga
 from datetime import datetime
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseBadRequest
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def definir_contas(request):
     if request.method == "GET":
         categorias = Categoria.objects.all()
@@ -35,6 +37,7 @@ def definir_contas(request):
         return redirect('/contas/definir_contas')
 
 
+@login_required
 def ver_contas(request):
     MES_ATUAL = datetime.now().month
     DIA_ATUAL = datetime.now().day
@@ -71,6 +74,7 @@ def pagar_conta(request, conta_id):
     return redirect('ver_contas')
 
 
+@login_required
 def dashboard(request):
     dados = {}
     categorias = Categoria.objects.all()

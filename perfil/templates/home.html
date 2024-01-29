@@ -43,13 +43,12 @@
         <br>
 
         <div class="row">
-
             <div class="col-md-4">
                 <div class="card">
                     <div class="saldo">
                         <span class="fonte-destaque">Saldo total</span>
                         <br>
-                        <span class="font-light">R$ 1.200,00</span>
+                        <span class="font-light">R$ {{ total_contas }}  </span>
                     </div>
                     <hr class="hr-borda">
                     <span class="fonte-destaque">Suas contas</span>
@@ -64,14 +63,24 @@
                             <br>
                         {% endfor %}
 
-
                     </div>
                     <hr class="hr-borda">
-                    <a href="{% url 'gerenciar' %}" class="botao-principal">Gerenciar contas</a>
+                    <a href="{% url 'gerenciar' %}" class="botao-principal">Gerenciar Contas</a>
                     <hr>
-                    <a href="{% url 'view_extrato' %}" class="botao-principal">Ver extratos</a>
+                    <a href="{% url 'view_extrato' %}" class="botao-principal">Ver Extratos</a>
+                    <hr>
+                    <a href="{% url 'dashboard' %}" class="botao-principal">Ver Dashboard</a>
                 </div>
-
+                <br>
+                <div class="card">
+                    <div class="saldo">
+                        <span class="fonte-destaque">Planejamento</span>
+                    </div>
+                    <hr class="hr-borda">
+                    <a href="{% url 'definir_planejamento' %}" class="botao-principal">Definir planejamento</a>
+                    <hr>
+                    <a href="{% url 'ver_planejamento' %}" class="botao-principal">Ver planejamento</a>
+                </div>
             </div>
 
             <div class="col-md-8">
@@ -98,25 +107,9 @@
                     <span class="fonte-destaque">Total livre</span>
                     <span class="font-light negativo">R$ 0.000,00</span>
                     <hr class="hr-borda">
-                    <a href="#" class="botao-principal">Gerenciar dados mensais</a>
+                    <a href="{% url 'definir_contas' %}" class="botao-principal">Gerenciar dados mensais</a>
                 </div>
-            </div>
-
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="saldo">
-                        <span class="fonte-destaque">Planejamento</span>
-                    </div>
-                    <hr class="hr-borda">
-                    <a href="{% url 'definir_planejamento' %}" class="botao-principal">Definir planejamento</a>
-                    <hr>
-                    <a href="{% url 'ver_planejamento' %}" class="botao-principal">Ver planejamento</a>
-                </div>
-            </div>
-            <div class="col-md-8">
+                <br>
                 <div class="card">
                     <span class="fonte-destaque">Equilibrio financeiro</span>
                     <hr class="hr-borda">
@@ -133,16 +126,8 @@
 
                     <hr class="hr-borda">
                     <a href="{% url 'gerenciar' %}" class="botao-principal">Alterar categorias essenciais</a>
-
                 </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-4">
-            </div>
-
-            <div class="col-md-8">
+                <br>
                 <div class="card">
                     <span class="fonte-destaque">Gerenciar contas</span>
                     <hr class="hr-borda">
@@ -160,7 +145,6 @@
                 </div>
             </div>
         </div>
-        <br>
         <br>
     </div>
 {% endblock %}

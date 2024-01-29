@@ -10,8 +10,10 @@ from extrato.models import Valores
 from django.contrib import messages
 from django.contrib.messages import constants
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def novo_valor(request):
     if request.method == "GET":
         contas = Conta.objects.all()
@@ -49,6 +51,7 @@ def novo_valor(request):
         return redirect('/extrato/novo_valor')
 
 
+@login_required
 def view_extrato(request):
     contas = Conta.objects.all()
     categorias = Categoria.objects.all()
