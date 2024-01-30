@@ -1,14 +1,14 @@
 from django.contrib import messages
 from django.contrib.messages import constants
-from django.db.models import Sum
 from django.shortcuts import render, redirect
 from extrato.models import Valores
-from perfil.models import Categoria
+from perfil.models import Categoria, Conta
 from .models import ContaPagar, ContaPaga
 from datetime import datetime
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 
 @login_required
@@ -91,3 +91,32 @@ def dashboard(request):
         dados[categoria.categoria] = Valores.objects.filter(categoria=categoria).aggregate(Sum('valor'))['valor__sum']'''
 
     return render(request, 'dashboard.html', {'labels': list(dados.keys()), 'values': list(dados.values())})
+
+
+@login_required
+def definir_mensais(request):
+    contas = Conta.objects.all()
+    categorias = Categoria.objects.all()
+
+    conta_get = request.GET.get('conta')
+    categoria_get = request.GET.get('categoria')
+    periodo_get = request.GET.get('periodo')
+
+    valores = Valores.objects.all()
+
+    if conta_get:
+        valores = valores.filter(conta__id=conta_get)
+    if categoria_get:
+        valores = valores.filter(categoria__id=categoria_get)
+
+    # Adicione a lógica para filtrar por período
+    if periodo_get:
+        hoje = timezone.now().date()
+        if periodo_get == '7':
+            valores = valores.filter(data__gte=hoje - timezone.timedelta(days=7))
+        elif periodo_get == '15':
+            valores = valores.filter(data__gte=hoje - timezone.timedelta(days=15))
+        elif periodo_get == '30':
+            valores = valores.filter(data__gte=hoje - timezone.timedelta(days=30))
+
+    return render(request, 'definir_mensais.html', {'valores': valores, 'contas': contas, 'categorias': categorias})

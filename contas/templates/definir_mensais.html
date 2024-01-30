@@ -12,7 +12,7 @@
     <br>
     <br>
     <div class='container'>
-        <form action="{% url 'view_extrato' %}" method="GET">{% csrf_token %}
+        <form action="{% url 'definir_mensais' %}" method="GET">{% csrf_token %}
         <div class="row">
 
             <div class="col-md">
@@ -42,7 +42,6 @@
                     <option value="7">Últimos 7 dias</option>
                     <option value="15">Últimos 15 dias</option>
                     <option value="30">Últimos 30 dias</option>
-                    <option value="more_than_30">Mais de 30 dias</option>
                 </select>
             </div>
 
@@ -51,12 +50,8 @@
         <div class="row">
             <div class="col-md-2">
                 <input style="width: 100%" type="submit" class="botao-principal" value="Filtrar">
-
             </div>
         </form>
-            <div class="col-md-2">
-                <a href="{% url 'exportar_pdf' %}" class="botao-secundario">Exportar extrato</a>
-            </div>
         </div>
         <br>
         <br>
@@ -89,6 +84,20 @@
                             <td>R$ {{valor.valor}}</td>
                         </tr>
                     {% endfor %}
+                </table>
+        </div>
+        <br>
+        <div class="card">
+                <table>
+                    <tr>
+                        <th>#</th>
+                    </tr>
+                    <tr class="linha">
+                        <td>Saldos Ganhos</td>
+                    </tr>
+                    <tr class="linha">
+                        <td>Saldos Gastos</td>
+                    </tr>
                 </table>
         </div>
     </div>

@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.contrib.messages import constants
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 
 @login_required
@@ -58,16 +59,27 @@ def view_extrato(request):
 
     conta_get = request.GET.get('conta')
     categoria_get = request.GET.get('categoria')
+    periodo_get = request.GET.get('periodo')
 
-    valores = Valores.objects.filter(data__month=datetime.now().month)
+    valores = Valores.objects.all()
 
     if conta_get:
         valores = valores.filter(conta__id=conta_get)
     if categoria_get:
         valores = valores.filter(categoria__id=categoria_get)
 
-    #TODO: Botão para zerar/limpar os filtros (Tem que adicionar)
-    #TODO: Filtrar por período (o que está na tela não está funcionando)
+    # Adicione a lógica para filtrar por período
+    if periodo_get:
+        hoje = timezone.now().date()
+        if periodo_get == '7':
+            valores = valores.filter(data__gte=hoje - timezone.timedelta(days=7))
+        elif periodo_get == '15':
+            valores = valores.filter(data__gte=hoje - timezone.timedelta(days=15))
+        elif periodo_get == '30':
+            valores = valores.filter(data__gte=hoje - timezone.timedelta(days=30))
+        elif periodo_get == 'more_than_30':
+            valores = valores.filter(data__lt=hoje - timezone.timedelta(days=30))
+
     return render(request, 'view_extrato.html', {'valores': valores, 'contas': contas, 'categorias': categorias})
 
 
